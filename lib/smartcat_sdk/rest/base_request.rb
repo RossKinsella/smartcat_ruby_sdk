@@ -73,6 +73,7 @@ module SmartcatSDK
           response = @http.request request
           @last_response = response
           raise SmartcatSDK::REST::ServerError if response.is_a?(Net::HTTPServerError)
+          raise SmartcatSDK::REST::ServerError if response.status == 204
         rescue StandardError => _error
           raise if request.class == Net::HTTP::Post
           raise if retries_left <= 0
